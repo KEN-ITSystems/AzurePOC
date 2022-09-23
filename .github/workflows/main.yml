@@ -23,7 +23,7 @@ jobs:
           ref: main-1
       - name: Build a sample Docker image with Firefox 
         run: |
-          docker build -f ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }} --file Dockerfile
+          docker build -t ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }} .
       - name: Scan Docker image using Azure Container Scan action
         uses: Azure/container-scan@v0
         id: container-scan
