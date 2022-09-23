@@ -6,9 +6,9 @@ name: Sample workflow to scan image and publish to Azure Container Registry
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [azsec-patch-1]
+    branches: [main-1]
   pull_request:
-    branches: [azsec-patch-1]
+    branches: [main-1]
 
 jobs:
   asc_scan:
