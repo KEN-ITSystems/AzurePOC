@@ -41,8 +41,8 @@ jobs:
       - name: Push scanned image to ${{ env.ACR_REPO_NAME }}
         run: |
           docker push ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }}
-      - name: Post result status to Azure Security Center
-        uses: Azure/publish-security-assessments@v0
+      #- name: Post result status to Azure Security Center
+        #uses: Azure/publish-security-assessments@v0
         #with:
           #artifact-type: containerImage
           #scan-provider: trivy
