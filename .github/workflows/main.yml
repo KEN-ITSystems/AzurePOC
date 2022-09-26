@@ -52,5 +52,5 @@ jobs:
           #scan-results-path: ${{ steps.container_scan.outputs.scan-report-path }}
           
           subscription-token: ${{ secrets.ASC_CONNECTION_STRING }}
-          instrumentation-key: ${{ secrets..ASC_AUTH_TOKEN }}
+          instrumentation-key: ${{ secrets.ASC_AUTH_TOKEN }}
           scan-results-path: ${{ steps.container_scan.outputs.scan-report-path }}
