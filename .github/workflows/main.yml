@@ -51,6 +51,6 @@ jobs:
           # Do not modify ${{ steps.container-scan.outputs.scan-report-path }} as it uses this path by default in Version 0.1
           #scan-results-path: ${{ steps.container_scan.outputs.scan-report-path }}
           
-          subscription-token: ${{ secrets.ASC_CONNECTION_STRING }}
-          instrumentation-key: ${{ secrets.ASC_AUTH_TOKEN }}
+          subscription-token: ${{ secrets.ASC_SUB_TOKEN }}
+          instrumentation-key: ${{ secrets.ASC_INSTRUMATION_KEY }}
           scan-results-path: ${{ steps.container_scan.outputs.scan-report-path }}
