@@ -23,9 +23,9 @@ jobs:
           ref: main
       - name: Build a sample Docker image with Firefox 
         run: |
-          docker build -t ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }} --file Dockerfile
+          docker build -t ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }} .
       - name: Scan Docker image using Azure Container Scan action
-        uses: Azure/container-scan@v0
+        uses: Azure/container-scan@v0.1
         id: container-scan
         continue-on-error: true
         with:
@@ -41,12 +41,26 @@ jobs:
       - name: Push scanned image to ${{ env.ACR_REPO_NAME }}
         run: |
           docker push ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }}
-      - name: Post result status to Azure Security Center
+      - name: Post logs to appinsights
         uses: Azure/publish-security-assessments@v0
-        with:
-          artifact-type: containerImage
-          scan-provider: trivy
-          connection-string: ${{ secrets.ASC_CONNECTION_STRING }}
-          subscription-token: ${{ secrets.ASC_AUTH_TOKEN }}
+        with: 
+            scan-results-path: ${{ steps.container-scan.outputs.scan-report-path }}
+            connection-string: ${{ secrets.ASC_CONNECTION_STRING }}
+            subscription-token: ${{ secrets.ASC_AUTH_TOKEN }} 
+      
+      #- name: Post result status to Azure Security Center
+        #uses: Azure/publish-security-assessments@v0
+        #with:
+          #artifact-type: containerImage
+          #scan-provider: trivy
+          #connection-string: ${{ secrets.ASC_CONNECTION_STRING }}
+          #instrumentation-key: ${{ secrets.ASC_AUTH_TOKEN }}
           # Do not modify ${{ steps.container-scan.outputs.scan-report-path }} as it uses this path by default in Version 0.1
-          scan-results-path: ${{ steps.container-scan.outputs.scan-report-path }}
+          #scan-results-path: ${{ steps.container_scan.outputs.scan-report-path }}
+          
+          #subscription-token: ${{ secrets.ASC_AUTH_TOKEN }}
+          #instrumentation-key: ${{ secrets.ASC_INSTRUMATION_KEY }}
+          #scan-results-path: ${{ steps.container_scan.outputs.scan-report-path }}
+
+         
+
