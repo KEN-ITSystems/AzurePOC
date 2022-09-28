@@ -6,9 +6,9 @@ name: Sample workflow to scan image and publish to Azure Container Registry
 on:
   # Triggers the workflow on push or pull request events but only for the master branch
   push:
-    branches: [azsec-patch-1]
+    branches: [main]
   pull_request:
-    branches: [azsec-patch-1]
+    branches: [main]
 
 jobs:
   asc_scan:
@@ -20,7 +20,7 @@ jobs:
       - name: Checkout sample Dockerfile
         uses: actions/checkout@v2
         with:
-          ref: azsec-patch-1
+          ref: main
       - name: Build a sample Docker image with Firefox 
         run: |
           docker build -t ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }} --file Dockerfile
