@@ -28,14 +28,25 @@ jobs:
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
       - name: Scan Docker image using Azure Container Scan action
-        uses: Azure/container-scan@v0
-        id: container-scan
+      - uses: Azure/container-scan@v0
+        name: scan image for vulnerabilities
+        # threshold levels are UNKNOWN, LOW, MEDIUM, HIGH, CRITICAL
+        id: container_scan
+        # To fail the job when vulnerabilities are found, set to false
         continue-on-error: true
         with:
+          #image-name: testimage:${{ github.sha }}
           image-name: ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }}
+          severity-threshold: MEDIUM
+        
+        #uses: Azure/container-scan@v0
+        #id: container-scan
+        #continue-on-error: true
+        #with:
+        #  image-name: ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }}
           # run-quality-checks provides CIS benchmark assessment
-          severity-threshold: CRITICAL
-          run-quality-checks: true
+        #  severity-threshold: CRITICAL
+        #  run-quality-checks: true
       - name: Login to Azure Container Registry
         uses: Azure/docker-login@v1
         with:
