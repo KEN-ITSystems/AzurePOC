@@ -28,7 +28,7 @@ jobs:
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
       - name: Scan Docker image using Azure Container Scan action
-      - uses: Azure/container-scan@v0
+      #- uses: Azure/container-scan@v0
         #name: scan image for vulnerabilities
         # threshold levels are UNKNOWN, LOW, MEDIUM, HIGH, CRITICAL
         ##id: container_scan
