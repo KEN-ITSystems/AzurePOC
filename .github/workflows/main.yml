@@ -34,6 +34,7 @@ jobs:
         with:
           image-name: ${{ env.ACR_SERVER }}/${{ env.ACR_REPO_NAME }}:${{ github.sha }}
           # run-quality-checks provides CIS benchmark assessment
+          severity-threshold: CRITICAL
           run-quality-checks: true
       - name: Login to Azure Container Registry
         uses: Azure/docker-login@v1
